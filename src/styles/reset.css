@@ -1,51 +1,69 @@
-/* 1. Use a more-intuitive box-sizing model */
-*, *::before, *::after {
-    box-sizing: border-box;
-    font-family: inherit;
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+  font-family: inherit;
 }
 
-  /* 2. Remove default margin */
-* {
-margin: 0;
+html {
+  /* color-scheme: dark light; */
+  hanging-punctuation: first last;
 }
 
 body {
-/* 3. Add accessible line-height */
-line-height: 1.5;
-/* 4. Improve text rendering */
--webkit-font-smoothing: antialiased;
-margin: 0;
-padding: 0;
+  margin: 0;
+  padding: 0;
+  min-height: 100svh;
 }
 
-/* 5. Improve media defaults */
-img, picture, video, canvas, svg {
-display: block;
-max-width: 100%;
+img,
+picture,
+svg,
+video {
+  display: block;
+  font-style: italic;
+  max-width: 100%;
 }
 
-/* 6. Inherit fonts for form controls */
-input, button, textarea, select {
-font: inherit;
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  text-wrap: balance;
 }
 
-/* 7. Avoid text overflows */
-p, h1, h2, h3, h4, h5, h6 {
-overflow-wrap: break-word;
-}
-
-/* 8. Improve line wrapping */
 p {
-text-wrap: pretty;
-max-width: 75ch;
-}
-h1, h2, h3, h4, h5, h6 {
-text-wrap: balance;
+  max-width: 75ch;
+  text-wrap: pretty;
 }
 
-/*
-9. Create a root stacking context
-*/
-#root, #__next {
-isolation: isolate;
+button,
+input:is([type="submit"], [type="button"], [type="checkbox"]) {
+  color: inherit;
+  cursor: pointer;
+  letter-spacing: inherit;
+}
+
+input[type="number"] {
+  appearance: normal;
+  -moz-appearance: textfield;
+}
+
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+table {
+  font-variant-numeric: tabular-nums;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  :has(:target) {
+    scroll-behavior: smooth;
+    scroll-padding-top: 3rem;
+  }
 }
