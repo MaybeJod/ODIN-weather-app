@@ -1,19 +1,30 @@
 const Api = {
-	baseUrl:"https://weather.visualcrossing.com/VisualCrossingWebServices/rest/services/timeline/",
-    location: "",
+	baseUrl:
+		"https://weather.visualcrossing.com/VisualCrossingWebServices/rest/services/timeline/",
+	location: "london",
 	date: getTodaysDate(),
 	unit: "?unitGroup=metric",
 	include: "&include=days",
 	apiKey: "&key=QARTRYEARU82C4QTZQ24YZ36K",
 };
 
-function getTodaysDate(date) {
-	date = new Date();
+function getTodaysDate() {
+	const date = new Date();
 	const isoString = date.toISOString();
 	const formattedDate = isoString.split("T")[0];
 	formattedDate.toString();
 	return formattedDate;
 }
+
+function getCurrentTime() {
+    const date = new Date();
+    const isoString = date.toISOString();
+    const formattedTime = isoString.split("T")[1];
+    formattedTime.toString();
+    console.log(formattedTime);
+    return formattedTime;
+}
+
 
 function getUserInput() {
 	const userInput = document.querySelector("#userInput");
@@ -21,17 +32,18 @@ function getUserInput() {
 	if (!location) {
 		console.log("enter a location");
 	} else {
-		console.log(location);
 		return location;
 	}
 }
 
 function createApiUrl() {
-    Api["location"] = getUserInput() + "/"
-	let apiUrl = Object.keys(Api).map(function (key) {
+	Api.location = getUserInput() + "/";
+	let apiUrl = Object.keys(Api)
+		.map(function (key) {
 			return Api[key];
 		})
 		.join("");
+	console.log(apiUrl);
 	return apiUrl;
 }
 
@@ -46,13 +58,21 @@ const weatherButton = document.querySelector("#weatherButton");
 weatherButton.addEventListener("click", handleClick);
 
 async function handleClick() {
-	const dataDisplay = document.querySelector("#display");
 	const displayHeader = document.querySelector("#headerLocation");
+	const dataDisplay = document.querySelector("#temp");
+	const feelsLikeTempDisplay = document.querySelector("#feelsLikeTemp");
+	const minMaxTempDisplay = document.querySelector("#minMaxTemp");
+	const descriptionDisplay = document.querySelector("#weatherDescription");
 
 	if (getUserInput()) {
 		const data = await getDataFromApi();
-		displayHeader.innerText = data.days[0].description;
-		dataDisplay.innerText = "todays temp: " + data.days[0].temp + "˚";
+
+		displayHeader.innerText = data.resolvedAddress;
+		dataDisplay.innerText = data.days[0].temp + "˚";
+		feelsLikeTempDisplay.innerText =
+			"Feels like: " + data.days[0].feelslike + "˚";
+		minMaxTempDisplay.innerText = `H:${data.days[0].tempmax}˚ L:${data.days[0].tempmin}˚`;
+		descriptionDisplay.innerText = data.days[0].description;
 	} else {
 		console.log("error");
 	}
