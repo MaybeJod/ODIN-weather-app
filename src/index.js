@@ -12,19 +12,23 @@ function getTodaysDate() {
 	const date = new Date();
 	const isoString = date.toISOString();
 	const formattedDate = isoString.split("T")[0];
-	formattedDate.toString();
 	return formattedDate;
 }
 
 function getCurrentTime() {
-    const date = new Date();
-    const isoString = date.toISOString();
-    const formattedTime = isoString.split("T")[1];
-    formattedTime.toString();
-    console.log(formattedTime);
-    return formattedTime;
+	const date = new Date();
+	const isoString = date.toISOString();
+	const formattedTime = isoString.split("T")[1].split(".")[0];
+	return formattedTime;
 }
 
+function updateTime() {
+	const currentTimeDisplay = document.querySelector("#currentTime");
+	currentTimeDisplay.innerText = getCurrentTime();
+	return currentTimeDisplay;
+}
+
+setInterval(updateTime, 1000);
 
 function getUserInput() {
 	const userInput = document.querySelector("#userInput");
@@ -62,6 +66,7 @@ async function handleClick() {
 	const dataDisplay = document.querySelector("#temp");
 	const feelsLikeTempDisplay = document.querySelector("#feelsLikeTemp");
 	const minMaxTempDisplay = document.querySelector("#minMaxTemp");
+
 	const descriptionDisplay = document.querySelector("#weatherDescription");
 
 	if (getUserInput()) {
@@ -72,6 +77,7 @@ async function handleClick() {
 		feelsLikeTempDisplay.innerText =
 			"Feels like: " + data.days[0].feelslike + "˚";
 		minMaxTempDisplay.innerText = `H:${data.days[0].tempmax}˚ L:${data.days[0].tempmin}˚`;
+		//currentTimeDisplay.innerText = getCurrentTime();
 		descriptionDisplay.innerText = data.days[0].description;
 	} else {
 		console.log("error");
