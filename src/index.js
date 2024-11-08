@@ -1,3 +1,5 @@
+import "./styles/style.css"
+
 const Api = {
 	baseUrl:
 		"https://weather.visualcrossing.com/VisualCrossingWebServices/rest/services/timeline/",
@@ -22,13 +24,13 @@ function getCurrentTime() {
 	return formattedTime;
 }
 
-function updateTime() {
-	const currentTimeDisplay = document.querySelector("#currentTime");
-	currentTimeDisplay.innerText = getCurrentTime();
+function updateTimeAndDate() {
+	const currentTimeDisplay = document.querySelector("#currentTimeAndDate");
+	currentTimeDisplay.innerText = getCurrentTime() + " | " + getTodaysDate();
 	return currentTimeDisplay;
 }
 
-setInterval(updateTime, 1000);
+setInterval(updateTimeAndDate, 1000);
 
 function getUserInput() {
 	const userInput = document.querySelector("#userInput");
@@ -77,7 +79,6 @@ async function handleClick() {
 		feelsLikeTempDisplay.innerText =
 			"Feels like: " + data.days[0].feelslike + "˚";
 		minMaxTempDisplay.innerText = `H:${data.days[0].tempmax}˚ L:${data.days[0].tempmin}˚`;
-		//currentTimeDisplay.innerText = getCurrentTime();
 		descriptionDisplay.innerText = data.days[0].description;
 	} else {
 		console.log("error");
